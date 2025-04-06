@@ -1,24 +1,24 @@
-// lib/features/favorites/service/favorites_service.dart
+import 'package:e_commerce_app/features/models/product_res_model.dart';
 import 'package:flutter/foundation.dart';
 
 class FavoritesService with ChangeNotifier {
-  final List<dynamic> _favoriteItems = [];
+  final List<ProductResModel> _favoriteItems = [];
 
-  List<dynamic> get favorites => _favoriteItems;
+  List<ProductResModel> get favorites => _favoriteItems;
 
-  void addToFavorites(dynamic product) {
-    if (!_favoriteItems.any((item) => item['id'] == product['id'])) {
+  void addToFavorites(ProductResModel product) {
+    if (!_favoriteItems.any((item) => item.id == product.id)) {
       _favoriteItems.add(product);
       notifyListeners();
     }
   }
 
-  void removeFromFavorites(dynamic product) {
-    _favoriteItems.removeWhere((item) => item['id'] == product['id']);
+  void removeFromFavorites(ProductResModel product) {
+    _favoriteItems.removeWhere((item) => item.id == product.id);
     notifyListeners();
   }
 
-  bool isFavorite(dynamic product) {
-    return _favoriteItems.any((item) => item['id'] == product['id']);
+  bool isFavorite(ProductResModel product) {
+    return _favoriteItems.any((item) => item.id == product.id);
   }
 }

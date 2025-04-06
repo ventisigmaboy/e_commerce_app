@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/config/constants.dart';
 import 'package:e_commerce_app/features/auth/service/auth_service.dart';
 import 'package:e_commerce_app/features/home/service/product_service.dart';
+import 'package:e_commerce_app/features/models/product_res_model.dart';
 import 'package:e_commerce_app/widget/build_category_list.dart';
 import 'package:e_commerce_app/widget/build_search_field.dart';
 import 'package:e_commerce_app/widget/product_card.dart';
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final AuthService authService = AuthService();
   final ProductService productService = ProductService();
-  late Future<List<dynamic>> _productsFuture;
+  late Future<List<ProductResModel>> _productsFuture; // Updated type
 
   @override
   void initState() {
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildProductGrid() {
     return Expanded(
-      child: FutureBuilder<List<dynamic>>(
+      child: FutureBuilder<List<ProductResModel>>( // Updated type
         future: _productsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

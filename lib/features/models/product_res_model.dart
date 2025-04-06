@@ -38,4 +38,9 @@ class Rating {
   final int count;
 
   Rating({required this.rate, required this.count});
+
+  @override
+  String toString() {
+    return rate.toStringAsFixed(1); // Formats to 1 decimal place
+  }
 }

@@ -2,13 +2,13 @@
 import 'package:e_commerce_app/config/constants.dart';
 import 'package:e_commerce_app/features/home/service/favorites_service.dart';
 import 'package:e_commerce_app/features/home/view/users/screen/product_detail.dart';
+import 'package:e_commerce_app/features/models/product_res_model.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
-  final dynamic product;
-
+  final ProductResModel product;
   const ProductCard({super.key, required this.product});
 
   final bool isFavorite = false;
@@ -38,35 +38,13 @@ class ProductCard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: Image.network(
-                  product['image'],
+                  product.image,
                   fit: BoxFit.contain,
                   errorBuilder:
                       (context, error, stackTrace) =>
                           Center(child: Icon(Icons.error, color: Colors.grey)),
                 ),
               ),
-
-              // Discount Badge (if applicable)
-              // if (widget.product['price'] > 100) // Example condition
-              //   Positioned(
-              //     top: 8,
-              //     left: 8,
-              //     child: Container(
-              //       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              //       decoration: BoxDecoration(
-              //         color: Colors.red,
-              //         borderRadius: BorderRadius.circular(4),
-              //       ),
-              //       child: Text(
-              //         '-52%',
-              //         style: TextStyle(
-              //           color: Colors.white,
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
               Positioned(
                 top: 8,
                 right: 8,
@@ -122,7 +100,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 // Product Title
                 Text(
-                  product['title'],
+                  product.title,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
@@ -138,18 +116,18 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '\$${product['price'].toStringAsFixed(2)}',
+                      '\$${product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
                         color: AppColors.primary500,
                       ),
                     ),
-                    if (product['price'] > 100) // Example condition
+                    if (product.price > 100) // Example condition
                       Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          '\$${(product['price'] * 1.52).toStringAsFixed(2)}',
+                          '\$${(product.price * 1.52).toStringAsFixed(2)}',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,

@@ -1,10 +1,11 @@
 import 'package:e_commerce_app/config/constants.dart';
 import 'package:e_commerce_app/features/home/provider/cart_provider.dart';
+import 'package:e_commerce_app/features/models/product_res_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetail extends StatefulWidget {
-  final dynamic product;
+  final ProductResModel product;
   const ProductDetail({super.key, required this.product});
 
   @override
@@ -49,7 +50,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                     // padding: EdgeInsets.all(20),
                     child: Image.network(
-                      widget.product['image'],
+                      widget.product.image,
                       fit: BoxFit.contain,
                       errorBuilder:
                           (context, error, stackTrace) => Center(
@@ -65,7 +66,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.product['title'],
+                          widget.product.title,
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
@@ -82,7 +83,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       const Icon(Icons.star, color: Colors.amber, size: 20),
                       const SizedBox(width: 4),
                       Text(
-                        '${widget.product['rating']['rate']}/5',
+                        '${widget.product.rating}/5',
                         style: TextStyle(
                           fontSize: 16,
                           color: AppColors.primary900,
@@ -90,7 +91,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                       ),
                       Text(
-                        ' (${widget.product['rating']['count']} reviews)',
+                        ' (${widget.product.rating} reviews)',
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.primary500,
@@ -102,7 +103,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
                   // Product Description
                   Text(
-                    widget.product['description'],
+                    widget.product.desc,
                     style: TextStyle(
                       fontSize: 15,
                       color: AppColors.primary700,
@@ -175,7 +176,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     ),
                     Text(
-                      '\$${widget.product['price'].toStringAsFixed(2)}',
+                      '\$${widget.product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,

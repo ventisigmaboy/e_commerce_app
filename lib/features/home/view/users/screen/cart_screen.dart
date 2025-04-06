@@ -1,4 +1,3 @@
-// cart_page.dart
 import 'package:e_commerce_app/config/constants.dart';
 import 'package:e_commerce_app/features/home/provider/cart_provider.dart';
 import 'package:e_commerce_app/widget/custom_button.dart';
@@ -16,7 +15,7 @@ class CartScreen extends StatelessWidget {
       backgroundColor: AppColors.primary0,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'My Cart',
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
         ),
@@ -28,157 +27,156 @@ class CartScreen extends StatelessWidget {
         ],
         backgroundColor: AppColors.primary0,
       ),
-      body:
-          cart.isEmpty
-              ? Center(
-                child: Text(
-                  'Your cart is empty',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-              )
-              : Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      padding: EdgeInsets.all(16),
-                      itemCount: cart.items.length,
-                      itemBuilder: (context, index) {
-                        final item = cart.items[index];
-                        return Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primary100),
-                            borderRadius: BorderRadius.circular(10),
+      body: cart.isEmpty
+          ? const Center(
+              child: Text(
+                'Your cart is empty',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: cart.items.length,
+                    itemBuilder: (context, index) {
+                      final item = cart.items[index];
+                      return Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primary100),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: const EdgeInsets.only(bottom: 16),
+                        child: ListTile(
+                          leading: Image.network(
+                            item.product.image,
+                            width: 50,
+                            errorBuilder: (_, __, ___) => 
+                                const Icon(Icons.error),
                           ),
-                          margin: EdgeInsets.only(bottom: 16),
-                          child: ListTile(
-                            leading: Image.network(item['image'], width: 50),
-                            title: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    item['title'],
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                          title: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  item.product.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    wordSpacing: -1,
+                                    color: AppColors.primary900,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              GestureDetector(
+                                onTap: () => cart.removeFromCart(index),
+                                child: Image.asset(
+                                  'assets/icons/trash.png',
+                                  width: 15,
+                                  color: AppColors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Size: ${item.selectedSize}',
+                                style: TextStyle(
+                                  color: AppColors.primary500,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    '\$${item.product.price.toStringAsFixed(2)}',
                                     style: TextStyle(
-                                      wordSpacing: -1,
                                       color: AppColors.primary900,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14,
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 8),
-                                GestureDetector(
-                                  onTap: () {
-                                    cart.removeFromCart(index);
-                                  },
-                                  child: Image.asset(
-                                    'assets/icons/trash.png',
-                                    width: 15,
-                                    color: AppColors.red,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Size: ${item['selectedSize']}',
-                                  style: TextStyle(
-                                    color: AppColors.primary500,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '\$ ${item['price'].toStringAsFixed(2)}',
-                                      style: TextStyle(
-                                        color: AppColors.primary900,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
+                                  const Spacer(),
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => cart.decrementQty(index),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: AppColors.primary100,
+                                            ),
+                                            borderRadius: BorderRadius.circular(3),
+                                          ),
+                                          child: const Icon(Icons.remove),
+                                        ),
                                       ),
-                                    ),
-                                    Spacer(),
-                                    Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () => cart.decrementQty(index),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: AppColors.primary100,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(3),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                        child: Text('${item.quantity}'),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () => cart.incrementQty(index),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: AppColors.primary100,
                                             ),
-                                            child: Icon(Icons.remove),
+                                            borderRadius: BorderRadius.circular(3),
                                           ),
+                                          child: const Icon(Icons.add),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0,
-                                          ),
-                                          child: Text('${item['quantity']}'),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => cart.incrementQty(index),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: AppColors.primary100,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(3),
-                                            ),
-                                            child: Icon(Icons.add),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
-                  Divider(height: 1, color: AppColors.primary100),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 16,
-                    ),
-                    child: Column(
-                      children: [
-                        _summaryRow(
-                          'Sub-total',
-                          cart.subTotal.toStringAsFixed(2),
-                        ),
-                        _summaryRow('VAT (%)', '0.00'),
-                        _summaryRow('Shipping fee', '80.00'),
-                        Divider(height: 20),
-                        _summaryRow(
-                          'Total',
-                          (cart.subTotal + 80).toStringAsFixed(2),
-                          isTotal: true,
-                        ),
-                        SizedBox(height: 20),
-                        CustomButton(
-                          rightIcon: Icon(Icons.arrow_forward),
-                          text: 'Go to Checkout',
-                          textColor: AppColors.primary0,
-                          onPressed: () {},
-                          color: AppColors.primary900,
-                        ),
-                      ],
-                    ),
+                ),
+                const Divider(height: 1, color: AppColors.primary100),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
                   ),
-                ],
-              ),
+                  child: Column(
+                    children: [
+                      _summaryRow(
+                        'Sub-total',
+                        cart.subTotal.toStringAsFixed(2),
+                      ),
+                      _summaryRow('VAT (%)', '0.00'),
+                      _summaryRow('Shipping fee', '80.00'),
+                      const Divider(height: 20),
+                      _summaryRow(
+                        'Total',
+                        (cart.subTotal + 80).toStringAsFixed(2),
+                        isTotal: true,
+                      ),
+                      const SizedBox(height: 20),
+                      CustomButton(
+                        rightIcon: const Icon(Icons.arrow_forward),
+                        text: 'Go to Checkout',
+                        textColor: AppColors.primary0,
+                        onPressed: () {},
+                        color: AppColors.primary900,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
     );
   }
 
@@ -197,7 +195,7 @@ class CartScreen extends StatelessWidget {
             ),
           ),
           Text(
-            '\$ $value',
+            '\$$value',
             style: TextStyle(
               color: isTotal ? Colors.black : Colors.black,
               fontSize: isTotal ? 16 : 14,
