@@ -157,11 +157,11 @@ class CartScreen extends StatelessWidget {
                         cart.subTotal.toStringAsFixed(2),
                       ),
                       _summaryRow('VAT (%)', '0.00'),
-                      _summaryRow('Shipping fee', '80.00'),
+                      _summaryRow('Shipping fee', '10.00'),
                       const Divider(height: 20),
                       _summaryRow(
                         'Total',
-                        (cart.subTotal + 80).toStringAsFixed(2),
+                        (cart.subTotal + 10).toStringAsFixed(2),
                         isTotal: true,
                       ),
                       const SizedBox(height: 20),

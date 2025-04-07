@@ -110,7 +110,7 @@ class ProductCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
 
-                SizedBox(height: 8),
+                SizedBox(height: 5),
 
                 // Price and Discount
                 Row(
