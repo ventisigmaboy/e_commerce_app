@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/config/constants.dart';
 import 'package:e_commerce_app/features/home/view/users/screen/cart_screen.dart';
 import 'package:e_commerce_app/features/home/view/users/screen/home_screen.dart';
+import 'package:e_commerce_app/features/home/view/users/screen/profile_screen.dart';
 import 'package:e_commerce_app/features/home/view/users/screen/saved_screen.dart';
 import 'package:e_commerce_app/features/home/view/users/screen/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
       ProductSearchScreen(),
       SavedScreen(),
       CartScreen(),
-      HomeScreen(),
+      ProfileScreen(),
     ];
   }
 
